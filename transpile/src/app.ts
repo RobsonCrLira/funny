@@ -81,6 +81,13 @@ const insert = async () => {
         }
         return acc;
     }, []);
+    const titles = data.reduce((acc: any, item) => {
+        if (typeof item.post_parent === 'number') {
+            return [...acc, item.guid];
+        }
+        return acc;
+    }, []);
+    fs.writeFileSync('titles.txt', titles.join("' , '"));
     fs.writeFileSync('insert.sql', insertValues.join('\n'));
 };
 insert();
